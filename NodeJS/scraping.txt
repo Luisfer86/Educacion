@@ -1,0 +1,47 @@
+--- Web scraping 
+es una herramienta que que simula el uso de un navegador chrome 
+Es una técnica utilizada mediante programas de software para extraer información 
+de sitios web. Usualmente, estos programas simulan la navegación de un humano en la World Wide Web 
+ya sea utilizando el protocolo HTTP manualmente, o incrustando un navegador en una aplicación.
+
+INSTALAR EL PAQUETE
+npm i -g puppeteer
+
+Las herramientas de web scraping son software, es decir, bots programados para examinar base de
+datos y extraer información
+- Reconocer estructuras de sitiios HTML únicos
+- Extraer y transformar contenidos
+- Almacenar datos
+- Extraer datos de las API
+
+Dado que todos los bots utilizan el mismo sistema para acceder a lso datos del sitio
+a veces puede resultar dificil distinguir entre bots legitimos y bots maliciosos. 
+
+--- A continuación un ejemplo de codigo:
+
+const puppeteer = require('puppeteer');
+
+(async () => {
+    console.log('Lanzando navegador');
+    //const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch( {headless: false });
+    
+    const page = await browser.newPage();
+    await page.goto('https://es.wikipedia.org/wiki/Node.js')
+    
+    var titulo1 = await page.evaluate(() => {
+        const h1 = document.querySelector('h1');
+        console.log(h1.innerHTML);
+        return h1.innerHTML;
+    });
+
+    console.log(titulo1);
+
+    console.log('Cerrando navegador...');
+    browser.close();
+    console.log('Navegador cerrado');
+    
+})();
+
+/* Asi podemos entrar a una web por medio de el 
+navegador chrome y trabajar con la  informacion de ella */

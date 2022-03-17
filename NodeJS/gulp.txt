@@ -1,0 +1,58 @@
+Gulp.js
+Es una herramienta de construcción en JavaScript construida sobre flujos de nodos.
+Estos flujos facilitan la conexión de operaciones de archivos a través de canalizaciones. 
+Gulp lee el sistema de archivos y canaliza los datos disponibles de un complemento de un 
+solo propósito a otro a través del .pipe()operador, haciendo una tarea a la vez.
+Los archivos originales no se ven afectados hasta que se procesan todos los complementos. 
+Se puede configurar para modificar los archivos originales o para crear nuevos. 
+Esto otorga la capacidad de realizar tareas complejas mediante la vinculación de sus 
+numerosos complementos. Los usuarios también pueden escribir sus propios complementos 
+para definir sus propias tareas.
+
+INSTALAR EL PAQUETE
+npm i gulp gulp-server-livereload
+
+
+--- A continuación un ejemplo de codigo:
+
+/*
+  Trabajando automatizacion de procesos con gulp
+*/
+const gulp = require('gulp');
+const server = require('gulp-server-livereload');
+
+/*
+  Iniciar una tarea con gulp, usando task que recibe dos parametros
+  1. El nombre de la tarea.
+  2. Un callback que tambien recibe un callback
+*/
+gulp.task('build', function(fn){
+  console.log('Contruyendo el sitio');
+  setTimeout(fn, 1200);
+});
+
+gulp.task('serve', function(fn){
+  // pipe encadena streams
+  gulp.src('www')
+    .pipe(server({
+      livereload: true,
+      open: true
+    }))
+});
+
+// Encadenar tareas
+gulp.task('default', gulp.series('build', 'serve'));
+
+---Adicional se necesita crear un script personalizado en el package.json.
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp"
+    "build": "gulp build"
+    "serve": "gulp serve"
+  }
+
+---Correr el script.
+npm run start
+npm run build
+npm run serve

@@ -1,0 +1,38 @@
+Electron
+
+(conocido anteriormente como Atom Shell1​) es un framework de código abierto creado por Cheng Zhao, 
+y ahora desarrollado por GitHub. Permite el desarrollo de aplicaciones gráficas de escritorio 
+usando componentes del lado del cliente y del servidor originalmente desarrolladas para 
+aplicaciones web: Node.js del lado del servidor y Chromium como interfaz. Electron es el 
+framework gráfico detrás de muchos proyectos de código abierto importantes, incluyendo a 
+Atom de GitHub​ y Microsoft Visual Studio Code. Aplicaciones que usan Electron:
+Visual Studio Code, Atom, Slack, WhatsApp, Skype, Twich, Signal, Github desktop.
+
+INSTALAR EL PAQUETE
+npm i electron
+
+--- A continuación un ejemplo de codigo:
+
+const { app, BrowserWindow } = require('electron');
+
+let ventanaPrincipal;
+
+app.on('ready', crearVentana);
+
+function crearVentana() {
+    ventanaPrincipal = new BrowserWindow({
+        width: 800,
+        height: 600,
+    });
+
+    ventanaPrincipal.loadFile('index.html');
+}
+
+---Adicional se necesita crear un script personalizado en el package.json.
+
+"scripts": {
+    "start": "electron ."
+  }
+
+---Correr el script.
+npm start
