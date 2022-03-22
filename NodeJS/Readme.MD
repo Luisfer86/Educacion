@@ -1,36 +1,36 @@
 # Fundamentos básicos de NodeJS
 
 ## Cómo manejar la asincronía
-<p> Callbacks </p>
-<p> Callback Hell: refactorizar o sufrir </p>
-<p> Promesas </p>
-<p> Async/await </p>
-<p> 
+<li> Callbacks </li>
+<li> Callback Hell: refactorizar o sufrir </li>
+<li> Promesas </li>
+<li> Async/await </li>
+
 ## Entender los módulos del core 
-<p> Globals </p>
-<p> File system </p>
-<p> Console </p>
-<p> Errores (try / catch) </p>
-<p> Procesos hijo </p>
-<p> Módulos nativos en C++ </p>
-<p> HTTP </p>
-<p> OS </p>
-<p> Process </p>
-> 
+<li> Globals </li>
+<li> File system </li>
+<li> Console </li>
+<li> Errores (try / catch) </li>
+<li> Procesos hijo </li>
+<li> Módulos nativos en C++ </li>
+<li> HTTP </li>
+<li> OS </li>
+<li> Process </li>
+
 ## Utilizar los módulos y paquetes externos
-<p> Gestión de paquetes: NPM y package.json </p>
-<p> Construyendo módulos: Require e Import </p>
-<p> Módulos útiles </p>
-<p> Datos almacenados vs en memoria </p>
-<p> Buffers </p>
-<p> Streams </p>
-> 
-## Conocer trucos que no quieren que sepas
-<p> Benchmarking (console time y timeEnd) </p>
-<p> Debugger </p>
-<p> Error First Callbacks </p>
-> 
+<li> Gestión de paquetes: NPM y package.json </li>
+<li> Construyendo módulos: Require e Import </li>
+<li> Módulos útiles </li>
+<li> Datos almacenados vs en memoria </li>
+<li> Buffers </li>
+<li> Streams </li>
+
+## Mejores prácticas
+<li> Benchmarking (console time y timeEnd) </li>
+<li> Debugger </li>
+<li> Error First Callbacks </li>
+
 ## Manejar herramientas con Node
-<p> Scraping </p>
-<p> Automatización de procesos - Gulp </p>
-<p> Aplicaciones de escritorio - Electron </p>
+<li> Scraping </li>
+<li> Automatización de procesos - Gulp </li>
+<li> Aplicaciones de escritorio - Electron </li>
