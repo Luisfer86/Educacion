@@ -1,36 +1,36 @@
 # Fundamentos básicos de NodeJS
 
 ## Cómo manejar la asincronía
-> Callbacks
-> Callback Hell: refactorizar o sufrir
-> Promesas
-> Async/await
-> 
+<p> Callbacks </p>
+<p> Callback Hell: refactorizar o sufrir </p>
+<p> Promesas </p>
+<p> Async/await </p>
+<p> 
 ## Entender los módulos del core 
-> Globals
-> File system
-> Console
-> Errores (try / catch)
-> Procesos hijo
-> Módulos nativos en C++
-> HTTP
-> OS
-> Process
+<p> Globals </p>
+<p> File system </p>
+<p> Console </p>
+<p> Errores (try / catch) </p>
+<p> Procesos hijo </p>
+<p> Módulos nativos en C++ </p>
+<p> HTTP </p>
+<p> OS </p>
+<p> Process </p>
 > 
 ## Utilizar los módulos y paquetes externos
-> Gestión de paquetes: NPM y package.json
-> Construyendo módulos: Require e Import
-> Módulos útiles
-> Datos almacenados vs en memoria
-> Buffers
-> Streams
+<p> Gestión de paquetes: NPM y package.json </p>
+<p> Construyendo módulos: Require e Import </p>
+<p> Módulos útiles </p>
+<p> Datos almacenados vs en memoria </p>
+<p> Buffers </p>
+<p> Streams </p>
 > 
 ## Conocer trucos que no quieren que sepas
-> Benchmarking (console time y timeEnd)
-> Debugger
-> Error First Callbacks
+<p> Benchmarking (console time y timeEnd) </p>
+<p> Debugger </p>
+<p> Error First Callbacks </p>
 > 
 ## Manejar herramientas con Node
-> Scraping
-> Automatización de procesos - Gulp
-> Aplicaciones de escritorio - Electron
+<p> Scraping </p>
+<p> Automatización de procesos - Gulp </p>
+<p> Aplicaciones de escritorio - Electron </p>
