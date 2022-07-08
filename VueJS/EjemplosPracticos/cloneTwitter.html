@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLONE Twitter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <script alt="" src="https://unpkg.com/vue@3"></script>
+    <div id="app">
+    </div>
+    <script>
+        const vm = Vue.createApp({
+            data(){
+                return{
+                    estado: 'Iniciar Sesión',
+                    open: false,
+                    showFormTweet: false,
+                    username: '',
+                    messageTweet: null,
+                    showButtonTwittear: false,
+                    listTweets: [
+                        {
+                            name: 'LuisFer', 
+                            path: '@Luisfer2686', 
+                            time: '6 jul', 
+                            content: `Creando una aplicación clon de Twitter`
+                        },
+                        {
+                            name: 'LuisFer', 
+                            path: '@Luisfer2686', 
+                            time: '7 jul', 
+                            content: `El módulo de inicio de sesión esta completo`
+                        },
+                        {
+                            name: 'LuisFer', 
+                            path: '@Luisfer2686', 
+                            time: '7h', 
+                            content: 'Mediante una v-for, se muestran los tweets'
+                        },
+                        {
+                            name: 'LuisFer', 
+                            path: '@Luisfer2686', 
+                            time: '1h', 
+                            content: 'Se puede agregar y eliminar un tweet',
+                        },
+                    ]
+                };
+            },
+            methods: {
+                addTweet(){
+                    this.showFormTweet = true;
+                },
+                addTweetToArray(){
+                    if(!this.showButtonTwittear){return}
+                    console.log('add', this.listTweets);
+                    this.listTweets.push(
+                        {
+                            name: 'LuisFer', 
+                            path: '@Luisfer2686', 
+                            time: '0m', 
+                            content: this.messageTweet
+                        }
+                    );
+                    this.closeAddTweet();
+                    this.messageTweet = null;
+                    console.log('add2', this.listTweets);
+                }, 
+                closeAddTweet(){
+                    this.showFormTweet = false;
+                },
+                tweetDelete(index){
+                    this.listTweets.splice(index, 1);
+                }
+            },
+            watch:{
+                open(now, old){
+                    this.estado = now ? 'App list' : 'Iniciar Sesión ';
+                }, 
+                messageTweet(now, old){
+                    this.showButtonTwittear = now !== '';
+                }
+            },
+            computed:{
+                nameButton(){
+                    return this.open ? 'Salir' : 'Entrar';
+                }
+            },
+            template: `
+            <div class="container"
+            :class="{'open': open, 'close': !open}">
+                <div class="login" v-if="!open">
+                    <div class="container-img">
+                        <img class="icono" alt="twitter" src="https://cdn-icons-png.flaticon.com/512/145/145812.png"/>  
+                    </div>
+                    <h2 class="titulo">Inicia sesión en Twitter</h2>
+                    <span class="btn-social"
+                    @click=" open = !open"> 
+                        <img alt="google" src="https://cdn-icons-png.flaticon.com/512/300/300221.png"/>
+                        Iniciar sesión con Google
+                    </span>
+                    <span class="btn-social"
+                    @click=" open = !open"> 
+                        <img alt="apple" src="https://cdn-icons-png.flaticon.com/512/0/747.png"/>
+                        Iniciar sesión con Apple
+                    </span>
+                    <div class="division">
+                        <label> o </label>
+                    </div>
+
+                    <input 
+                        v-model="username" 
+                        type="text" 
+                        class="username" 
+                        placeholder="Teléfono, correo electrónico o nombre"
+                    >  
+                    <button class="btn-siguiente" @click=" open = !open">Siguiente</button>  
+                    <button class="btn-forgotten-password">¿Olvidaste tu contraseña?</button>
+
+                    <span class="no-account">¿No tienes cuenta? <a href="#">Regístrate</a></span>
+                    <div class="creditos">
+                        <div> Iconos diseñados por <a href="https://www.flaticon.es/autores/those-icons" title="Those Icons"> Those Icons </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div><br>
+                    </div>
+                </div>
+                <div v-if="open && !showFormTweet" class="contain-wall">
+                    <div class="header">
+                        <div class="title-page">
+                            <div class="name">
+                                <span>LuisFer</span>
+                                <img alt="verified" src="https://cdn-icons-png.flaticon.com/512/7641/7641727.png"/>
+                            </div>
+                            <div class="number-tweets"> 133,6 mil Tweets</div>
+                        </div>
+                        <div class="logout" @click=" open = !open">
+                            <img alt="logout" src="https://cdn-icons.flaticon.com/png/512/3889/premium/3889524.png?token=exp=1657218433~hmac=df726f83edb429b64baa88edd055741e"/>    
+                        </div>
+                    </div>
+                    <div class="banner-logo">
+                        <div class="banner">
+                            <img alt="banner" src="https://www.diitedu.com/uploads/subcategory/diitedu-banner-subcategory-914.jpg"/>
+                            <div class="logo">
+                                <img alt="imagenFernando" src="https://scontent.fgye1-2.fna.fbcdn.net/v/t1.6435-9/127580630_4088424961174685_3990890617240078150_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=MdviyrHxrhgAX8mdm_O&_nc_ht=scontent.fgye1-2.fna&oh=00_AT-1sARwrg1r5rYpREO81likq9DAAVImpHe129aeR37RuQ&oe=62EB8E6E" />
+                            </div></div>
+                        <div class="menu">
+                            <span class="icon"><img alt="menu" src="https://cdn-icons.flaticon.com/png/512/3018/premium/3018442.png?token=exp=1657219853~hmac=55f264d8d1d8bc6297eac99cbbdae057" class="icon-menu"/></span>
+                            <span class="icon"><img alt="mail" src="https://cdn-icons-png.flaticon.com/512/561/561127.png" class="icon-menu"/> </span>
+                            <span class="icon pluma"><img alt="addNotification" src="https://cdn-icons-png.flaticon.com/512/1827/1827395.png" class="icon-menu"/> </span>
+                            <span class="btn-follow"> Siguiendo </span> 
+                        </div>
+                        <div class="user-info">
+                            <div class="name">
+                                <span>LuisFer</span>
+                                <img alt="verified" src="https://cdn-icons-png.flaticon.com/512/7641/7641727.png"/>
+                            </div>
+                            <span class="user-path">@LuisFer2686</span>
+                            <p class="description">FrontEnd Developer VueJS</p>
+                        </div>
+                        <div class="menu-tweets">
+                                <span class="selected">Tweets</span>
+                                <span>Tweets y respuestas</span>
+                                <span>Me gusta</span>
+                        </div>
+                        <div class="listado-tweets">
+                            <div class="tweet"  v-for="(tweet, index) in listTweets" :key="index">
+                                <div class="teewt-user-img"><img alt="imagenFernando" src="https://scontent.fgye1-2.fna.fbcdn.net/v/t1.6435-9/127580630_4088424961174685_3990890617240078150_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=MdviyrHxrhgAX8mdm_O&_nc_ht=scontent.fgye1-2.fna&oh=00_AT-1sARwrg1r5rYpREO81likq9DAAVImpHe129aeR37RuQ&oe=62EB8E6E" /></div>
+                                <div class="tweet-description">
+                                    <div class="delete-tweet">
+                                        <span @click="tweetDelete(index)">x</span>
+                                    </div>
+                                    <p class="teewt-user">
+                                        <span class="name-tweet">
+                                            {{tweet.name}} 
+                                            <img alt="verified" src="https://cdn-icons-png.flaticon.com/512/7641/7641727.png"/>
+                                        </span>
+                                        <span class="path-tweet">{{tweet.path}}</span>
+                                        <span class="time-tweet">• {{tweet.time}}</span>
+                                    </p>
+                                    <p class="tweet-content">{{tweet.content}}</p>
+                                    
+                                    <div class="tweet-icons">
+                                        <div class="icon-contain">
+                                            <img class="item-tweet" alt="bubble" src="https://cdn-icons-png.flaticon.com/512/2462/2462719.png"/>
+                                            <span class="icon-number">1</span>
+                                        </div>
+                                        <div class="icon-contain">
+                                            <img class="item-tweet" alt="retweet" src="https://cdn-icons.flaticon.com/png/512/2734/premium/2734827.png?token=exp=1657219652~hmac=ac4de1ed3036bf87027b1b3a9018f7bd"/>
+                                            <span class="icon-number">3</span>
+                                        </div>
+                                        <div class="icon-contain">
+                                            <img class="item-tweet" alt="heart" src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"/>
+                                            <span class="icon-number">47</span>
+                                        </div>
+                                        <div class="icon-contain">
+                                            <img class="item-tweet" alt="upload" src="https://cdn-icons.flaticon.com/png/512/3097/premium/3097412.png?token=exp=1657219694~hmac=42fc95f531ea4667b38ba326b2193656"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="add-pluma" @click="addTweet()">
+                        <img alt="feather" src="https://cdn-icons.flaticon.com/png/512/4324/premium/4324764.png?token=exp=1657220118~hmac=f5d1692a060831947b6866a311e8556b" />
+                    </div>
+                </div>
+                <div v-if="open && showFormTweet" class="contain-wall">
+                    <div class="add-header">
+                        <img alt="return" src="https://cdn-icons-png.flaticon.com/512/150/150519.png" @click="closeAddTweet()"/>
+                        <button :class="{'btn-disabled' : !showButtonTwittear}"
+                            @click="addTweetToArray()"
+                        >Twittear</button>
+                    </div>
+                    <div class="publish">
+                        <div class="teewt-user-img"><img alt="imagenFernando" src="https://scontent.fgye1-2.fna.fbcdn.net/v/t1.6435-9/127580630_4088424961174685_3990890617240078150_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=MdviyrHxrhgAX8mdm_O&_nc_ht=scontent.fgye1-2.fna&oh=00_AT-1sARwrg1r5rYpREO81likq9DAAVImpHe129aeR37RuQ&oe=62EB8E6E" /></div>
+                        <div class="new-tweet">
+                            <textarea
+                                v-model="messageTweet"
+                                name="notas" 
+                                rows=5 cols=20
+                                placeholder="¿Qué está pasando?"
+                            ></textarea>
+                            <p class="alcance">
+                                <img alt="world" src="https://cdn-icons-png.flaticon.com/512/744/744480.png" />
+                                Cualquier persona puede responder
+                            </p>
+                            <div class="aditamentos"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        }).mount('#app');
+    </script>
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Anybody', cursive;
+        }
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100px;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+        }
+        /* .open{ background-color: #b5e7a0; }
+        .close{ background-color: #eca1a6; } */
+
+        .login{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            padding-top: 10px;
+        }
+        .container-img{
+            height: 50px;
+        }
+        .icono{
+            width: 50px; 
+            height: 50px;
+            object-fit: contain;
+        }
+        .titulo{
+            margin: 19px 0;
+        }
+        .btn-social{
+            cursor:pointer;
+            width: 300px;
+            height: 40px;
+            border: 1px solid lightgray;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 12px 0px;
+            font-size: 14px;
+        }
+        .btn-social>img{
+            width: 20px; 
+            height: 20px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+        .division{
+            border-top:1px solid lightgray;
+            width: 300px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .division>label{
+            margin-top: -8px;
+            display: flex;
+            justify-content: center;
+            background-color: white;
+            width: 30px;
+        }
+        .username{
+            width: 300px;
+            height: 40px;
+            font-size: 17px;
+            line-height: 24px;
+            padding: 8px 5px;
+            font-weight: 400;
+            border: 1px solid lightgray;
+            border-radius: 5px;
+            margin: 12px 0px;
+            box-sizing: border-box;
+        }
+        .btn-siguiente, .btn-forgotten-password{
+            margin: 12px 0px;
+            width: 300px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            border-radius: 50px;
+        }
+        .btn-siguiente{
+            color: white;
+            background-color: black;
+            cursor: pointer;
+        }
+        .btn-forgotten-password{
+            color: black;
+            background-color: white;
+            border: 1px solid lightgray;
+        }
+        .no-account{
+            width: 100%;
+            text-align: center;
+            font-size: 15px;
+            color: grey;
+            margin-top: 40px;
+        }
+        .no-account > a{
+            color: rgb(29, 155, 240);
+            margin-left: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .creditos{
+            font-size: 10px;
+            height: 40px;
+            overflow: auto;
+            margin-top: 20px;
+        }
+        .contain-wall{
+            width: 100%;
+            min-height: 100vh;
+
+            /*  display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box; */
+        }
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            margin: 0px 20px;
+        }
+        .title-page{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .title-page>.number-tweets{
+            font-size: 12px;
+            color: gray;
+        }
+        .title-page>.name>img{
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+            margin-left: 5px;
+        }
+        .header > .logout > img{
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+        .banner-logo .banner>img{
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .banner{
+            position: relative;
+        }
+        .logo{
+            position: absolute;
+            top: 118px;
+            left: 20px;
+            width: 75px;
+            height: 75px;
+            border: 2px solid white;
+            border-radius: 75px;
+            overflow: hidden;
+        }
+        .logo > img{
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+        }
+        .menu{
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            margin: 0 3px;
+        }
+        .menu > span.icon {
+            padding: 5px;
+            border-radius: 50px;
+            width: 20px;
+            height: 20px;
+            border: 1px solid lightgray;
+            margin: 0 2px;
+        }
+        .icon-menu {
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+        }
+        .btn-follow{
+            padding: 5px;
+            border-radius: 50px;
+            border: 1px solid lightgray;
+            width: 96px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 2px;
+        }
+        .user-info{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            /* align-items: center; */ 
+            margin: 15px 20px;
+            text-align: left;
+        
+        }
+        .name{
+            display: flex;
+            align-items: center;
+        }
+        .name>span{
+            font-weight: 800;
+            font-size: 19px;
+        }
+        .name>img{
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+            margin-left: 5px;
+        }
+        .user-info>.user-path{
+            color: gray;
+            font-size: 14px;
+        }
+        .user-info>.description{
+            font-size: 14px;
+        }
+        .menu-tweets{
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            align-items: center;
+            text-decoration: none;
+            list-style: none;
+            border-bottom: 1px solid lightgray;
+            font-size: 14px;
+        }
+        .menu-tweets>span{
+            margin: 0 auto;
+            height: 30px;
+        }
+        .menu-tweets > .selected{
+            font-weight: 600;
+            border-bottom: 4px solid rgb(29, 155, 240);
+        }
+        
+        .listado-tweets .tweet{
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            padding: 10px 0px;
+            border-bottom: 1px solid lightgray;
+        }
+        .teewt-user-img > img{
+            width: 40px;
+            height: 40px;
+            border-radius:60px ;
+            
+        }
+        .tweet-description .teewt-user{
+            display: flex;
+            text-align: start;
+            margin-top: 0px;
+        }
+        .delete-tweet{
+            justify-self: flex-end;
+            text-align: end;
+            align-self: initial;
+            display: flex;
+            justify-content: end;
+            padding-right: 10px;
+            color:rgb(83, 100, 113);
+            cursor: pointer;
+        }
+        .teewt-user>.name-tweet{
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .name-tweet > img{
+            width: 15px;
+            height: 15px;
+            object-fit: cover;
+            margin-left:3px;
+        }
+        .path-tweet, .time-tweet{
+            color:rgb(83, 100, 113);
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        .tweet-content{
+            font-size: 14px;
+            text-align: start;
+            margin-right: 10px;
+            color: rgb(15, 20, 25);
+            line-height: 19px;
+            white-space: pre-wrap;
+            font-weight: 400;
+        }
+        .tweet-icons{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .icon-contain {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .icon-contain > .item-tweet{
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            margin-right: 5px;
+        }
+        .icon-contain > .icon-number{
+            padding-top: 3px;
+            font-size: 12px;
+            color: #536471;
+        }
+        .add-pluma {
+            background-color: #1d9bf0;
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+            border-radius: 50px;
+
+            /* flotante */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            transition: all 300ms ease 0ms;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            z-index: 99;
+        }
+        .add-pluma img{
+            width: 30px;
+            height: 30px;
+        }
+
+        /* added tweet*/
+
+        .add-header{
+            box-sizing: border-box;
+            display: flex;
+            padding: 0px 20px;
+            width: 100%;
+            height: 50px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .add-header > img{
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+        .add-header > button{
+            background-color: rgb(29, 155, 240);
+            color: white;
+            border: none;
+            border-radius: 99px;
+            font-size: 14px;
+            height: 28px;
+            width: 80px;
+            padding: 0 15px;
+            cursor: pointer;
+        }
+        .add-header > button.btn-disabled{
+            opacity: 0.5;
+            
+        }
+        .publish{
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            padding: 10px 0px;
+        }
+        .new-tweet{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border-bottom: 1px solid lightgray;
+            margin-right: 20px;
+            margin-top: 15px;
+        }
+        .new-tweet > textarea{
+            border: 0px solid;
+            font-size: 19px;
+            color: rgb(15, 20, 25);
+            /* font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; */
+            
+            font-family: 'Anybody', cursive;
+        }
+        .new-tweet > textarea:focus {
+            outline: 0 none;
+        }
+        .alcance {
+            color: rgb(29, 155, 240);
+            font-weight: 600;
+            font-size: 13px;
+            text-align: start;
+            display: flex;
+            align-items: center;
+        }
+        .alcance > img{
+            margin-right: 5px;
+            width: 13px;
+            height: 13px;
+            object-fit: contain;
+        }
+    </style>
+</body>
+</html>

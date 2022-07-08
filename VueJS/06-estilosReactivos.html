@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app"></div>
+
+    <script>
+        const vm = Vue.createApp({
+            data(){
+                return{
+                    estado: 'Puerta Cerrada',
+                    puerta: false,
+                };
+            },
+            watch:{
+                puerta(newValue, oldValue){
+                    if(newValue){
+                        this.estado = "Puerta Abierta";
+                    }
+                    else{
+                        this.estado = "Puerta Cerrada";
+                    }
+                }
+            },
+            computed: { //computed es una propiedad que se utiliza para crear una función que se ejecuta una sola vez y no se ejecuta más.
+                label() {
+                    return this.puerta ? "Cerrar" : "Abrir";
+                },
+                styles() {
+                    return this.puerta ? ['open'] : ['close'];
+                }
+            },
+            //los estilos se pueden definir en una sola línea, pero se deben definir en una función.
+            template: `
+            <div class="container" :class="styles">
+                <p> {{estado}} </p>
+                <button @click="puerta = !puerta">{{ label }}</button>
+            </div>
+            `
+        }).mount('#app');
+    </script>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #app, .container{
+
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        button{
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .close {
+            background-color: #eca1a6;
+        }
+        .open {
+            background-color: #b5e7a0;
+        }
+    </style>
+</body>
+</html>
