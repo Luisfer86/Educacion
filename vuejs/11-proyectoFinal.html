@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>test vue 3</title>
+    </head>
+    <body>
+        <div id="appVue3"></div>
+    </body>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script type="text/javascript">
+        const appVue3 = Vue.createApp({
+            data() {
+                return {
+                    addPost:{
+                        title: '',
+                        description: '',
+                    }
+                    , editPost: false
+                    , openDoor: false
+                    , posts: [
+                        { title: "Post 1", description: "Description 1"}
+                        , { title: "Post 2", description: "Description 2" }
+                        , { title: "Post 3", description: "Description 3" }
+                        , { title: "Post 4", description: "Description 4" }
+                    ]
+                    , style: {
+                        backgroundColor: '#eca1a6'
+                    }
+                    , text: "Close door"
+                    , userName: ''
+                };
+            },
+            computed: {
+                openDoorComputed() {
+                    return this.openDoor ? "Close" : "Open";
+                }
+                , styleComputed(){
+                    return {
+                        backgroundColor: this.openDoor ? '#b5e7a0' : '#eca1a6'
+                    }
+                }
+                , styleComputed2(){
+                    return this.openDoor ? 'open' : 'closed';
+                }
+            },
+            methods: {
+                AddPostToTheList(){
+                    this.posts.push({
+                        title: this.addPost.title
+                        , description: this.addPost.description
+                    });
+                }
+                , DeletePost(index, element){
+                    // mutabilidad aqui seria para no mutar directamente el array
+                    // let aTemp = this.posts.map(function(item, index){
+                    //     return item;
+                    // });
+                    // aTemp.splice(index, 1);
+                    // this.posts = aTemp;
+
+                    this.posts.splice(index, 1);
+                    // console.log(index, element, this.posts, aTemp);
+                }
+            },
+            watch: {
+                openDoor(value, oldValue) {
+                    if(value){
+                        this.text = "Cierra sesión";
+                    }
+                    else{
+                        this.text = "Inicia sesión";
+                        this.userName = '';
+                        this.editPost = false;
+                    }  
+                }
+            },
+            template: `
+                <div class="container" :class="styleComputed2">
+                    <h2>{{ text }}</h2>
+                    <div v-if="openDoor">
+                        <div class="menuLogin">
+                                    <a href="#" @click="editPost = true">editar</a>
+                                    <a href="#" @click="editPost = false">ver</a>
+                        </div>
+                        <p>Hola, {{ userName }}</p>                        
+                        <div id="divEdit" class="containerEdit" v-if="editPost">
+                            <div id="divAddPost" class="addPost">
+                                <div> T&iacute;tulo </div>
+                                <input type="text" v-model="addPost.title" />
+                                <div> Descripci&oacute;n </div>
+                                <input type="text" v-model="addPost.description" />
+                                <div><button class="btnAdd" @click="AddPostToTheList">Agregar</button></div>
+                            </div>
+                            <div id="divDeletePost" class="delPost">
+                                <div class="itemDel" v-for="(post, i) in posts" key="i">
+                                    <div>{{post.title}}</div>
+                                    <a href="#" @click="DeletePost(i, post)">borrar</a>
+                                </div>    
+                            </div>
+                        </div>
+                        <div v-else class="list">
+                            <div class="item" v-for="(post, i) in posts" key="i">
+                                <div class="title">{{post.title}}</div>
+                                <p>{{post.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else="openDoor">
+                        <div>User name </div>
+                        <input type="text" v-model="userName">
+                    </div>
+                    <button @click="openDoor = !openDoor">
+                        <div v-if="!openDoor">Acceder</div>
+                        <div v-else>Salir</div>
+                    </button>
+                </div>
+            `,
+        }).mount("#appVue3");
+        console.log(appVue3);
+    </script>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #appVue3, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        button {
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+        .addPost{
+            background-color: #54964a;
+            border: 1px solid #ccc;
+            padding: 7px;
+        }
+        .btnAdd {
+            border: none;
+            background-color: #ced2cf;
+            border-radius: 3px;
+            color: #16512a;
+            font-weight: bold;
+            margin-top: 3px;
+            padding: 1px 3px;
+        }        
+        .closed {
+            background-color: #eca1a6;
+        }
+        .containerEdit{
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            width: 100%;
+        }
+        .delPost{
+            background-color: #54964a;
+            border: 1px solid #ccc;
+            padding: 7px;
+        }
+        .open {
+            background-color: #b5e7a0;
+        }
+        .list {
+            display: flex;
+            flex-direction: column;
+        }
+        .item{
+            border: 1px solid #1c2263;
+        }
+        .itemDel {
+            border-bottom: 1px solid #1c2263;
+            font-size: 14px;
+            margin-bottom: 7px;
+        }
+        .menuLogin{
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            gap: 7px;
+        }
+        .title{
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+    </style>
+</html>
