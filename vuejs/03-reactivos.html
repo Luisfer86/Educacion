@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+</head>
+<body>
+    <body>
+        <script src="https://unpkg.com/vue@3"></script>
+
+        <div id="app"></div>
+    
+        <script>
+            const vm = Vue.createApp({
+                data() {
+                    return {
+                        text1: 'change  - Texto con detección de cambios',
+                        text2: 'input   - Texto con Reactividad Tiempo Real',
+                        text3: 'v-bind  - Texto con Reactividad entre componentes One-Way',
+                        text4: 'v-model - Texto con Reactividad entre componentes Double-Way',
+                    };
+                },
+                methods: {
+                    input(e) {
+                        this.text1 = e.target.value;
+                    },
+                    input2(e) {
+                        this.text2 = e.target.value;
+                    },
+                    input3(e) {
+                        this.text3 = e.target.value;
+                    },
+                },
+                template: `
+                    <p>{{ text1 }}</p>
+                    <input type="text" v-on:change="input" >
+
+                    <p>{{ text2 }}</p>
+                    <input type="text" v-on:input="input2">
+
+                    <p>{{ text3 }}</p>
+            <!--    <input type="text" v-on:input="input3" v-bind:value="text3"> -->
+                    <input type="text" @input="input3" :value="text3">
+
+                    <p>{{ text4 }}</p>
+                    <input type="text" v-model="text4">
+                `,
+                // v-on:change detecta el evento al cambiar el texto
+                // v-on:input detecta el evento al cambiar el texto en tiempo real
+                // Se puede resumir: 
+                //      v-on:evento="funcion"    --> @evento="funcion"
+                //      v-bind:atributo="valor"  --> :atributo="valor"
+                // v-model="var-react" nos da reactividad entre componentes
+            }).mount('#app');
+        </script>
+    </body>
+</body>
+</html>

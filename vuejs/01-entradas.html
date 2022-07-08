@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VueJS</title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@next"></script> <!-- Instalar vuejs -->
+    <div id="app">
+      <!-- {{ text }} // Se coloca llaves para realizar la interpolación de texto-->
+      <img v-bind:src="img" v-bind:alt="" />
+    </div>
+    <script>
+      const vm = Vue.createApp({ // Crear una aplicación VueJS
+        data() {
+          return {
+            imagen: {
+              attr: "src", // Atributo de la imagen
+              textoalternativo: "alt", // Texto alternativo de la imagen
+              texto: "Myimagen", // Texto de la imagen
+              img: "https://i.picsum.photos/id/0/5616/3744.jpg?hmac=3GAAioiQziMGEtLbfrdbcoenXoWAW-zlyEAMkfEdBzQ",
+            },
+            // img: "https://i.picsum.photos/id/1/5616/3744.jpg?hmac=kKHwwU8s46oNettHKwJ24qOlIAsWN9d2TtsXDoCWWsQ"
+            // mensaje: "Hola LuisFer"
+          };
+        },
+        // template: `<div v-text="mensaje"></div>`
+        template: `<img :[imagen.attr]="imagen.img" :alt="imagen.texto" style="width:500px;"/>`,
+      }).mount("#app");
+      console.log(vm);
+    </script>
+  </body>
+</html>
